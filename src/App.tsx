@@ -1,26 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { FC, useEffect } from 'react'
+import { useAppDispatch, useAppSelector } from './hooks/hooks'
+import { getTickets, getSearchId } from './services/services'
+import Stops from './components/Stops/Stops'
+import logo from "./assets/Logo.png"
 
-function App() {
+import "./app.sass"
+
+const App: FC = () => {
+  const { searchId, error } = useAppSelector(state => state.ticketsState)
+  const dispatch = useAppDispatch()
+  
+  useEffect(() => {
+    dispatch(getSearchId())
+  }, [dispatch])
+  
+  useEffect(() => {
+    if(searchId) {
+      dispatch(getTickets(searchId))
+    }
+  }, [dispatch, searchId])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='container'>
+      <div className="logo">
+        <img src={logo} alt="aviasalesLogo" />
+      </div>
+      {
+        error && <h1 className='error'>{error}</h1>
+      }
+      <Stops/>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
+
