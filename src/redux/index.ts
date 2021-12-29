@@ -1,5 +1,5 @@
-import ticketsSlice from "./slices/ticketsSlice"
+import ticketsState from "./slices/ticketsSlice"
 
 export {
-    ticketsSlice
+    ticketsState
 }

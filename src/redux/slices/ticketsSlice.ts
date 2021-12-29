@@ -5,6 +5,13 @@ import { IServerData, TicketsState } from "../reducerTypes/type"
 
 const initialState: TicketsState = {
     tickets: [],
+    stopsFilter: {
+        all: true,
+        nonStops: false,
+        oneStop: false,
+        twoStops: false,
+        threeStops: false
+    },
     stop: false,
     loading: false,
     searchId: "",
@@ -14,7 +21,49 @@ const initialState: TicketsState = {
 export const ticketsSlice = createSlice({
     name: "tickets",
     initialState,
-    reducers: {},
+    reducers: {
+        editStopsFilter: (state, action: PayloadAction<string>): TicketsState => {
+            switch(action.payload) {
+                case "all":
+                    return {
+                        ...state,
+                        stopsFilter: {
+                            ...state.stopsFilter, all: !state.stopsFilter.all
+                        }
+                    }
+                case "nonStops":
+                    return {
+                        ...state,
+                        stopsFilter: {
+                            ...state.stopsFilter, nonStops: !state.stopsFilter.nonStops
+                        }
+                    }
+                case "oneStop":
+                    return {
+                        ...state,
+                        stopsFilter: {
+                            ...state.stopsFilter, oneStop: !state.stopsFilter.oneStop
+                        }
+                    }
+                case "twoStops":
+                    return {
+                        ...state,
+                        stopsFilter: {
+                            ...state.stopsFilter, twoStops: !state.stopsFilter.twoStops
+                        }
+                    }
+                case "threeStops":
+                    return {
+                        ...state,
+                        stopsFilter: {
+                            ...state.stopsFilter, threeStops: !state.stopsFilter.threeStops
+                        }
+                    }
+                default:
+                    return state
+            }
+        }
+    },
     extraReducers: {
         [getSearchId.fulfilled.type]: (state, action: PayloadAction<string>) => {
             state.searchId = action.payload
@@ -38,4 +87,8 @@ export const ticketsSlice = createSlice({
     }
 })
 
-export default ticketsSlice.reducer
+const { actions, reducer } = ticketsSlice
+
+export const { editStopsFilter } = actions
+
+export default reducer

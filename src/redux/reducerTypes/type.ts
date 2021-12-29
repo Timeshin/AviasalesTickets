@@ -6,6 +6,14 @@ interface ISegments {
     stops: string[];
 }
 
+export interface IStops {
+    all: boolean;
+    nonStops: boolean;
+    oneStop: boolean;
+    twoStops: boolean;
+    threeStops: boolean;
+}
+
 interface Tickets {
     price: number;
     carrier: string;
@@ -19,6 +27,7 @@ export interface IServerData {
 
 export interface TicketsState {
     tickets: Tickets[];
+    stopsFilter: IStops;
     stop: boolean;
     loading: boolean;
     searchId: string;
