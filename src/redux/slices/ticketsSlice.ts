@@ -60,7 +60,7 @@ export const ticketsSlice = createSlice({
                         }
                     }
                 default:
-                    return state
+                    return state   
             }
         }
     },

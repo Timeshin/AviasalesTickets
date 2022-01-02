@@ -1,4 +1,4 @@
-interface ISegments {
+export interface ISegments {
     date: string;
     destination: string;
     duration: number;
@@ -6,27 +6,21 @@ interface ISegments {
     stops: string[];
 }
 
-export interface IStops {
-    all: boolean;
-    nonStops: boolean;
-    oneStop: boolean;
-    twoStops: boolean;
-    threeStops: boolean;
-}
+type IStops = Record<string, boolean>
 
-interface Tickets {
+export interface ITickets {
     price: number;
     carrier: string;
     segments: ISegments[];
 }
 
 export interface IServerData {
-    tickets: Tickets[];
+    tickets: ITickets[];
     stop: boolean;
 }
 
 export interface TicketsState {
-    tickets: Tickets[];
+    tickets: ITickets[];
     stopsFilter: IStops;
     stop: boolean;
     loading: boolean;

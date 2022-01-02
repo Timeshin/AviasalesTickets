@@ -1,10 +1,7 @@
 import { FC } from 'react'
+import { IStopItem } from "../../types/types"
 
-interface IStopItem {
-    onChangeHandler: () => void;
-    name: string;
-    checked: boolean;
-}
+import "./stopItem.module.sass"
 
 const StopItem: FC<IStopItem> = ({onChangeHandler, name, checked}) => {
     return (

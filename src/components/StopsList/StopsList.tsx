@@ -2,11 +2,11 @@ import { FC } from 'react'
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks'
 import { editStopsFilter } from '../../redux/actions'
 import { IStopItem } from '../../types/types'
-import StopItem from '../UI/StopItem'
+import StopItem from '../StopItem/StopItem'
 
-import styles from "./stopList.module.sass"
+import styles from "./stopsList.module.sass"
 
-const Stops: FC = () => {
+const StopsList: FC = () => {
     const { stopsFilter } = useAppSelector(({ticketsState}) => ticketsState)
     const dispatch = useAppDispatch()
 
@@ -50,11 +50,15 @@ const Stops: FC = () => {
             <ul className={styles.transfer__list}>
                 {
                     stopItems.map((item, id) => 
-                        <StopItem checked={item.checked} name={item.name} onChangeHandler={item.onChangeHandler} />)
+                        <StopItem key={id}
+                         checked={item.checked}
+                         name={item.name}
+                         onChangeHandler={item.onChangeHandler}
+                         />)
                 }
             </ul>
         </div>
     )
 }
 
-export default Stops
+export default StopsList

@@ -1,13 +1,16 @@
 import { FC, useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from './hooks/hooks'
 import { getTickets, getSearchId } from './services/services'
-import StopList from './components/StopList/StopList'
+import StopsList from './components/StopsList/StopsList'
+import useFilter from './hooks/useFilter'
 import logo from "./assets/Logo.png"
 
 import "./app.sass"
+import TicketsList from './components/TicketsList/TicketsList'
 
 const App: FC = () => {
-  const { searchId, error } = useAppSelector(state => state.ticketsState)
+  const { searchId } = useAppSelector(state => state.ticketsState)
+  const tickets = useFilter()
   const dispatch = useAppDispatch()
   
   useEffect(() => {
@@ -19,16 +22,19 @@ const App: FC = () => {
       dispatch(getTickets(searchId))
     }
   }, [dispatch, searchId])
-  
+
+  console.log(tickets)
   return (
-    <div className='container'>
+    <div className="container">
       <div className="logo">
         <img src={logo} alt="aviasalesLogo" />
       </div>
-      {
-        error && <h1 className='error'>{error}</h1>
-      }
-      <StopList/>
+      <div className="wrapper">
+        <StopsList/>
+        <div className="wrapper__content">
+          <TicketsList tickets={tickets} />
+        </div>
+      </div>
     </div>
   )
 }
