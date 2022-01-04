@@ -6,18 +6,7 @@ const useFilter = () => {
     const { tickets, stopsFilter } = useAppSelector(({ticketsState}) => ticketsState)
 
     const sortedTickets = useMemo(() => {
-        switch (true) {
-            case stopsFilter.nonStops:
-                return ticketsFilter(tickets, 0)
-            case stopsFilter.oneStop:
-                return ticketsFilter(tickets, 1)
-            case stopsFilter.twoStops:
-                return ticketsFilter(tickets, 2)
-            case stopsFilter.threeStops:
-                return ticketsFilter(tickets, 3)
-            default:
-                return tickets
-        }
+        return ticketsFilter(tickets, stopsFilter)
     }, [tickets, stopsFilter])
 
     return sortedTickets

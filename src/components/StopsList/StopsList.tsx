@@ -1,44 +1,61 @@
-import { FC } from 'react'
-import { useAppDispatch, useAppSelector } from '../../hooks/hooks'
-import { editStopsFilter } from '../../redux/actions'
+import { FC, useEffect, useState } from 'react'
+import { useAppDispatch } from '../../hooks/hooks'
+import { stopsFilter } from '../../redux/actions'
 import { IStopItem } from '../../types/types'
 import StopItem from '../StopItem/StopItem'
 
 import styles from "./stopsList.module.sass"
 
 const StopsList: FC = () => {
-    const { stopsFilter } = useAppSelector(({ticketsState}) => ticketsState)
+    const [all, setAll] = useState<boolean>(true)
+    const [nonStop, setNonStop] = useState<boolean>(false)
+    const [oneStop, setOneStop] = useState<boolean>(false)
+    const [twoStops, setTwoStops] = useState<boolean>(false)
+    const [threeStops, setThreeStops] = useState<boolean>(false)
     const dispatch = useAppDispatch()
 
-    const onChangeHandler = (name: string): void => {
-        dispatch(editStopsFilter(name))
+    useEffect(() => {
+        if(!nonStop && !oneStop && !twoStops && !threeStops) {
+            setAll(true)
+        }
+
+        if(nonStop || oneStop || twoStops || threeStops) {
+            setAll(false)
+        }
+
+    }, [nonStop, oneStop, twoStops, threeStops, all])
+
+    const onChangeHandler = (stateChanger: any, value: string): void => {
+        stateChanger((prev: boolean) => !prev)
+
+        dispatch(stopsFilter(value))
     }
 
     const stopItems: IStopItem[] = [
         {
-            onChangeHandler: () => onChangeHandler("all"),
+            onChangeHandler: () => onChangeHandler(setAll, "all"),
             name: "All",
-            checked: stopsFilter.all
+            checked: all
         },
         {
-            onChangeHandler: () => onChangeHandler("nonStops"),
+            onChangeHandler: () => onChangeHandler(setNonStop, "nonStop"),
             name: "Non-stop",
-            checked: stopsFilter.nonStops
+            checked: nonStop
         },
         {
-            onChangeHandler: () => onChangeHandler("oneStop"),
+            onChangeHandler: () => onChangeHandler(setOneStop, "oneStop"),
             name: "1 stop",
-            checked: stopsFilter.oneStop
+            checked: oneStop
         },
         {
-            onChangeHandler: () => onChangeHandler("twoStops"),
+            onChangeHandler: () => onChangeHandler(setTwoStops, "twoStops"),
             name: "2 stops",
-            checked: stopsFilter.twoStops
+            checked: twoStops
         },
         {
-            onChangeHandler: () => onChangeHandler("threeStops"),
+            onChangeHandler: () => onChangeHandler(setThreeStops, "threeStops"),
             name: "3 stops",
-            checked: stopsFilter.threeStops
+            checked: threeStops
         }
     ]
 

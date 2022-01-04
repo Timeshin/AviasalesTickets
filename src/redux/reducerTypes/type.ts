@@ -6,7 +6,7 @@ export interface ISegments {
     stops: string[];
 }
 
-type IStops = Record<string, boolean>
+export type IStops = Array<number>
 
 export interface ITickets {
     price: number;

@@ -1,17 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { getTickets, getSearchId } from "../../services/services"
 import { IServerData, TicketsState } from "../reducerTypes/type"
-
+import editStopsFilter from "../../utils/editStopsFilter"
 
 const initialState: TicketsState = {
     tickets: [],
-    stopsFilter: {
-        all: true,
-        nonStops: false,
-        oneStop: false,
-        twoStops: false,
-        threeStops: false
-    },
+    stopsFilter: [],
     stop: false,
     loading: false,
     searchId: "",
@@ -22,42 +16,27 @@ export const ticketsSlice = createSlice({
     name: "tickets",
     initialState,
     reducers: {
-        editStopsFilter: (state, action: PayloadAction<string>): TicketsState => {
+        stopsFilter: (state, action: PayloadAction<string>): TicketsState => {
             switch(action.payload) {
-                case "all":
+                case "nonStop":
                     return {
                         ...state,
-                        stopsFilter: {
-                            ...state.stopsFilter, all: !state.stopsFilter.all
-                        }
-                    }
-                case "nonStops":
-                    return {
-                        ...state,
-                        stopsFilter: {
-                            ...state.stopsFilter, nonStops: !state.stopsFilter.nonStops
-                        }
+                        stopsFilter: editStopsFilter(state.stopsFilter, 0)
                     }
                 case "oneStop":
                     return {
                         ...state,
-                        stopsFilter: {
-                            ...state.stopsFilter, oneStop: !state.stopsFilter.oneStop
-                        }
+                        stopsFilter: editStopsFilter(state.stopsFilter, 1)
                     }
                 case "twoStops":
                     return {
                         ...state,
-                        stopsFilter: {
-                            ...state.stopsFilter, twoStops: !state.stopsFilter.twoStops
-                        }
+                        stopsFilter: editStopsFilter(state.stopsFilter, 2)
                     }
                 case "threeStops":
                     return {
                         ...state,
-                        stopsFilter: {
-                            ...state.stopsFilter, threeStops: !state.stopsFilter.threeStops
-                        }
+                        stopsFilter: editStopsFilter(state.stopsFilter, 3)
                     }
                 default:
                     return state   
@@ -89,6 +68,6 @@ export const ticketsSlice = createSlice({
 
 const { actions, reducer } = ticketsSlice
 
-export const { editStopsFilter } = actions
+export const { stopsFilter } = actions
 
 export default reducer

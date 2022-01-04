@@ -1,5 +1,5 @@
-import { editStopsFilter } from "../slices/ticketsSlice"
+import { stopsFilter } from "../slices/ticketsSlice"
 
 export {
-    editStopsFilter
+    stopsFilter
 }

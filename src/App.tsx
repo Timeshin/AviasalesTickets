@@ -23,7 +23,6 @@ const App: FC = () => {
     }
   }, [dispatch, searchId])
 
-  console.log(tickets)
   return (
     <div className="container">
       <div className="logo">
