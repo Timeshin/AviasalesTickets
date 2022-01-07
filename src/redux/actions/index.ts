@@ -1,5 +1,6 @@
-import { stopsFilter } from "../slices/ticketsSlice"
+import { stopsFilter, addQtyTickets } from "../slices/ticketsSlice"
 
 export {
-    stopsFilter
+    stopsFilter,
+    addQtyTickets
 }

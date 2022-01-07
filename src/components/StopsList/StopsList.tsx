@@ -33,7 +33,13 @@ const StopsList: FC = () => {
 
     const stopItems: IStopItem[] = [
         {
-            onChangeHandler: () => onChangeHandler(setAll, "all"),
+            onChangeHandler: () => {
+                onChangeHandler(setAll, "all")
+                setNonStop(false)
+                setOneStop(false)
+                setTwoStops(false)
+                setThreeStops(false)
+            },
             name: "All",
             checked: all
         },

@@ -6,8 +6,9 @@ import editStopsFilter from "../../utils/editStopsFilter"
 const initialState: TicketsState = {
     tickets: [],
     stopsFilter: [],
+    qtyTickets: 5,
     stop: false,
-    loading: false,
+    loading: true,
     searchId: "",
     error: ""
 }
@@ -18,6 +19,11 @@ export const ticketsSlice = createSlice({
     reducers: {
         stopsFilter: (state, action: PayloadAction<string>): TicketsState => {
             switch(action.payload) {
+                case "all":
+                    return {
+                        ...state,
+                        stopsFilter: editStopsFilter(state.stopsFilter, null)
+                    }
                 case "nonStop":
                     return {
                         ...state,
@@ -41,6 +47,9 @@ export const ticketsSlice = createSlice({
                 default:
                     return state   
             }
+        },
+        addQtyTickets: (state, action: PayloadAction<number>) => {
+            state.qtyTickets = state.qtyTickets + action.payload
         }
     },
     extraReducers: {
@@ -49,7 +58,7 @@ export const ticketsSlice = createSlice({
         },
 
         [getTickets.fulfilled.type]: (state, action: PayloadAction<IServerData>) => { // fulfilled (successful), pending (waiting), rejected (error)
-            state.tickets = action.payload.tickets
+            state.tickets = [...state.tickets, ...action.payload.tickets]
             state.stop = action.payload.stop
             state.loading = false
             state.error = ""
@@ -68,6 +77,6 @@ export const ticketsSlice = createSlice({
 
 const { actions, reducer } = ticketsSlice
 
-export const { stopsFilter } = actions
+export const { stopsFilter, addQtyTickets } = actions
 
 export default reducer

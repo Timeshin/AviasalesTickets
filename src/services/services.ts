@@ -21,6 +21,7 @@ export const getTickets = createAsyncThunk(
                     searchId: props
                 }
             })
+            console.log(response.data)
             return response.data
         } catch (e) {
             return thunkAPI.rejectWithValue("Error")

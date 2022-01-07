@@ -13,3 +13,8 @@ export interface ITicketsList {
 export interface ITicketItem {
     ticket: ITickets
 }
+
+export interface ITicketsFilter {
+    tickets: ITickets[]
+    filteredTickets: ITickets[]
+}
