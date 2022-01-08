@@ -22,6 +22,7 @@ export interface IServerData {
 export interface TicketsState {
     tickets: ITickets[]
     stopsFilter: IStops
+    mainFilter: string
     qtyTickets: number
     stop: boolean
     loading: boolean

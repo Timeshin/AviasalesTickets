@@ -1,9 +1,9 @@
 import { ITickets } from "../redux/reducerTypes/type";
 
 export interface IStopItem {
-    onChangeHandler: () => void;
-    name: string;
-    checked: boolean;
+    onChangeHandler: () => void
+    name: string
+    checked: boolean
 }
 
 export interface ITicketsList {
@@ -17,4 +17,9 @@ export interface ITicketItem {
 export interface ITicketsFilter {
     tickets: ITickets[]
     filteredTickets: ITickets[]
+}
+
+export interface IMainFilterItem {
+    name: string
+    onClickHandler: () => void   
 }

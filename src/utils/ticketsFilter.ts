@@ -1,18 +1,25 @@
 import { ITickets } from "../redux/reducerTypes/type"
 import { ITicketsFilter } from "../types/types"
 
-const ticketsFilter = (tickets: ITickets[], filterArr: number[], qtyTickets: number): ITicketsFilter => {
+const ticketsFilter = (
+        tickets: ITickets[],
+        filterArr: number[],
+        qtyTickets: number,
+        mainFilter: string
+    ): ITicketsFilter => {
+
 
     const filteredTickets = filterArr.length !== 0 ? tickets.filter(ticket => 
         ticket.segments.every(segment => 
-            filterArr.includes(segment.stops.length)
+                filterArr.includes(segment.stops.length)
             )
         )
         :
         tickets
         
-    console.log(filteredTickets)
-    const returnedTickets = filteredTickets.slice(0, qtyTickets)
+    const returnedTickets = mainFilter === "cheapest" ?
+    filteredTickets.slice(0, qtyTickets).sort((a, b) => a.price - b.price) :
+    filteredTickets.slice(0, qtyTickets).sort((a, b) => a.segments[0].duration - b.segments[0].duration)
 
     return {
         tickets: returnedTickets,

@@ -6,6 +6,7 @@ import editStopsFilter from "../../utils/editStopsFilter"
 const initialState: TicketsState = {
     tickets: [],
     stopsFilter: [],
+    mainFilter: "cheapest",
     qtyTickets: 5,
     stop: false,
     loading: true,
@@ -48,6 +49,9 @@ export const ticketsSlice = createSlice({
                     return state   
             }
         },
+        editingByMainFilter: (state, action: PayloadAction<string>) => {
+            state.mainFilter = action.payload
+        },
         addQtyTickets: (state, action: PayloadAction<number>) => {
             state.qtyTickets = state.qtyTickets + action.payload
         }
@@ -77,6 +81,6 @@ export const ticketsSlice = createSlice({
 
 const { actions, reducer } = ticketsSlice
 
-export const { stopsFilter, addQtyTickets } = actions
+export const { stopsFilter, addQtyTickets, editingByMainFilter } = actions
 
 export default reducer

@@ -8,6 +8,7 @@ import logo from "./assets/Logo.png"
 
 import "./app.sass"
 import TicketsList from './components/TicketsList/TicketsList'
+import MainFilterList from './components/MainFilterList/MainFilterList'
 
 const App: FC = () => {
   const { searchId, stop } = useAppSelector(state => state.ticketsState)
@@ -32,6 +33,7 @@ const App: FC = () => {
       <div className="wrapper">
         <StopsList/>
         <div className="wrapper__content">
+          <MainFilterList />
           <TicketsList tickets={ tickets } />
           <ShowAnotherTicketsBtn />
         </div>
